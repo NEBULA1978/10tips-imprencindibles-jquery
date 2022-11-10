@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 tips de jquery imprencisdinbles</title>
+
+    <style type="text/css">
+        .caja_imagenes{display: flex;flex-wrap: wrap;}
+        .imagen{width: 20%;}
+        img{max-width: 100%;}
+        .im{position:relative;}
+    </style>
+
+    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+    <script type="text/javascript">
+        $(document).ready(inicio);
+
+        imagenes=["tenedor_lapiz.png","producto2.png","producto3.png","producto4.png","producto5.png","producto6.png","producto7.png"];
+
+        descripcion=["un tenedor lapiz","gorra","mechero","llavero","sacapunta","chupachups","retratomini",]
+
+        function inicio(){
+            $(".caja_imagenes").html("<div class='imagen'><img class='im' src='img/"+imagenes[0]+"'></div>");
+            
+            $("#boton1").click(mas_imagenes);
+            $("#boton2").click(cambiar_imagen);
+            //solucionar evento de si no hay imagenes se ejecute la accion que voy a escribir abajo
+            $(document).on("click",".im",function(){
+                //alert("funciona");
+                $(this).animate({"top":"400px"},550,fin);
+                indice=$(this).parent().index();
+            })
+        function fin(){
+            $("body").append("Precio: <input type='number' id='precio'/>");
+            $("body").append("<button id='comprar'>Comprar</button>");
+            $("#comprar").click(comprar);
+            $("#precio").val(25);
+        }
+
+        function comprar(){
+            $("body").prepend("Has comprado "+descripcion[indice] +"  con un precio de "+$("#precio").val()+"€");
+        }
+
+        }
+        function mas_imagenes(){
+            var w=$(".im").length;
+             $(".caja_imagenes").append("<div class='imagen'><img class='im' src='img/"+imagenes[w]+"'></div>");
+        }
+        function cambiar_imagen(){
+            var w=$(".im").length-1;
+            $(".im").eq(w).attr("src","img/producto4.png")
+        }
+    </script>
+</head>
+<body>
+    <div class="caja_imagenes"></div>
+    <button id="boton1">Añadir Imagenes</button>
+    <button id="boton2">Cambiar Imagen</button>
+</body>
+</html>
+            
+           
